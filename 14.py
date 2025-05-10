@@ -1,6 +1,7 @@
 # 1.) FizzBuzz Challenge. Write a program that prints 
 # numbers from 1 to 50
 
+import string
 class Solution:
     def __init__(self):
         self.challenge_one = []
@@ -8,6 +9,9 @@ class Solution:
         self.challenge_three = []
         self.challenge_four = 0
         self.challenge_five = {} # grade and score
+        self.challenge_six = 0 #consonants count
+        self.challenge_seven = False # is_palindrome
+        self.challenge_eight = {} # word frequency counter
     
     def fizz_buzz(self, num):
         for i in range(1, num + 1):
@@ -36,7 +40,7 @@ class Solution:
             if i in vowels:
                 count += 1
         self.challenge_four = count
-
+     
     def check_grade(self, score):
         if score >= 90:
             self.challenge_five["grade"] = "A"
@@ -53,7 +57,26 @@ class Solution:
         else:
             self.challenge_five["grade"] = "F"
             self.challenge_five["score"] = score
-
+    
+    def count_consonants_in_word(self, word):
+        count = 0
+        vowels = ["a", "e", "i", "o", "u"]
+        for i in word.lower():
+            if i.isalpha() and i not in vowels:
+                count += 1
+        self.challenge_six = count
+    
+    def is_palindrome(self, word):
+        self.challenge_seven = list(word) == list(word[::-1])
+    
+    def word_frequency_counter(self, sentence):
+        my_list = sentence.lower().translate(str.maketrans('', '', string.punctuation)).split()
+        for i in my_list:
+            if i in self.challenge_eight:
+                self.challenge_eight[i] += 1
+            else:
+                self.challenge_eight[i] = 1
+        
     def display_all(self):
         print("\n Challenge One: FizzBuzz")
         print(self.challenge_one)
@@ -70,6 +93,19 @@ class Solution:
         print("\n Challenge Five: Check grade")
         print(f'{self.challenge_five["score"]} is {self.challenge_five["grade"]}')
 
+        print("\n Challenge Six: Count consonants in word")
+        print(self.challenge_six)
+
+        print("\n Challenge Seven: Palindrome checker ")
+        if solution.challenge_seven:
+            print(f"{word} is a palindrome")
+        else:
+            print(f"{word} is not a palindrome")
+        
+        print("\n Challenge Eight: Word frequency counter")
+        print(solution.challenge_eight)
+
+
 if __name__ == "__main__":
     solution = Solution()
     num_1 = int(input("What is your input range for challenge one? "))
@@ -85,5 +121,12 @@ if __name__ == "__main__":
 
     score = int(input("What was your score? "))
     solution.check_grade(score)
+
+    solution.count_consonants_in_word(word)
+
+    solution.is_palindrome(word)
+
+    sentence = input("Enter a sentence here: ")
+    solution.word_frequency_counter(sentence)
     
     solution.display_all()
